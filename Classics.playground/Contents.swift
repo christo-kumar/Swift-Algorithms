@@ -5,12 +5,54 @@ var greeting = "Swift Algos"
  1. Palindrome
  2. Anagram
  3. Ceaser Cipher
- 4. Sieve of Eratosthese
+ 4. Sieve of Eratosthenes
  5. Fizzbizz
- 6. Ransom Note
  */
-//[a][b][a]
-//Fired, Fried
+//1,2,Fizz, 4, buzz.... fizzbuzz
+func fizzbuzz(_ term: Int) {
+    for i in 1...term {
+        if i%5 == 0 && i%3 == 0 {
+            print("FizzBuzz")
+        } else if (i%5 == 0) {
+            print("Buzz")
+        } else if (i%3 == 0) {
+            print("Fizz")
+        } else {
+            print(i)
+        }
+    }
+}
+
+fizzbuzz(100)
+
+//30 - All the primes between 1-30
+func sieveOfEratosthenes(_ till: Int) -> [Bool] {
+    //prime no will be represented by index in array true means prime
+    //Mark all indexs true
+    //Identify prime and mark all its multiple index as false
+    var isPrimeArr = Array<Bool>(repeating: true, count: till+1)
+    isPrimeArr[0] = false
+    isPrimeArr[1] = false
+    
+    for i in 2..<isPrimeArr.count {
+        if isPrimeArr[i] {
+            //We will mark all its multiple to false
+            for j in stride(from: 2*i, to: isPrimeArr.count, by: i) {
+                isPrimeArr[j] = false
+            }
+        }
+    }
+    return isPrimeArr
+}
+
+func printSieve(_ arr: [Bool]) {
+    for (ind, val) in arr.enumerated() {
+        print("\(ind) - \(val) ")
+    }
+}
+
+//printSieve(sieveOfEratosthenes(30))
+
 
 
 func ceaserCipher(_ s: String) -> String {
@@ -27,7 +69,7 @@ func ceaserCipher(_ s: String) -> String {
     return String(cipher)
 }
 
-print(ceaserCipher("This is how it works"))
+//print(ceaserCipher("This is how it works"))
 
 
 func isAnagramV1(_ s:String, _ t:String) -> Bool {
