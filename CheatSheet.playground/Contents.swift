@@ -73,17 +73,26 @@ let reduced = fruits.reduce(into: "") { s, v in
 }
 print(reduced)
 
-/*
-////////////// String /////////
+////////////// Type Conversions /////////
+//Int to String
+let myString = String(42)
+print(myString)
+let myInt = Int(myString)
+print(myInt ?? 0)
+
 var greeting = "Hello, playground"
 let charArray = Array(greeting)
-print(charArray)
 let str2 = String(charArray)
-*/
+print(str2)
+
 ////////// Map ///////
 var movieMap = ["DCH":  1]
 var someMap: Dictionary<String, Int> = Dictionary<String, Int> ()
+
+movieMap["ZMDB"] = 2
+movieMap["BB"] = 3
 for key in movieMap.keys{ print(movieMap[key]!)}
+movieMap.removeValue(forKey: "DCH")
 
 
 
