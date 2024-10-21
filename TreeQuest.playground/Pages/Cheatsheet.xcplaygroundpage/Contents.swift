@@ -110,4 +110,33 @@ class BinarySearchTree<T: Comparable> {
     }
 }
 
+let bst = BinarySearchTree<Int>()
+
+bst.insert(value: 50)
+bst.insert(value: 30)
+bst.insert(value: 70)
+bst.insert(value: 20)
+bst.insert(value: 40)
+bst.insert(value: 60)
+bst.insert(value: 80)
+
+print("In-order Traversal:")
+bst.inOrderTraversal(node: bst.root)  // Output: 20 30 40 50 60 70 80
+
+print("\nPre-order Traversal:")
+bst.preOrderTraversal(node: bst.root) // Output: 50 30 20 40 70 60 80
+
+print("\nPost-order Traversal:")
+bst.postOrderTraversal(node: bst.root) // Output: 20 40 30 60 80 70 50
+
+if let searchResult = bst.search(value: 60) {
+    print("\nFound: \(searchResult.value)")
+} else {
+    print("\nNot found")
+}
+
+bst.delete(value: 70)
+print("\nAfter deletion of 70:")
+bst.inOrderTraversal(node: bst.root)
+
 //: [Next](@next)
