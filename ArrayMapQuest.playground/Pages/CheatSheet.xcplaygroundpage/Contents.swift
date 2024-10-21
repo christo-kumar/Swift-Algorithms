@@ -22,6 +22,27 @@ starks[1] = "Catylne"
 //delete
 starks.remove(at: 3)
 
+//search
+//find ~ firstIndex, first
+if let index = starks.firstIndex(where: {$0 == "Ned"}) {
+   print(index)
+}
+if (starks.contains("Ned")) {
+    print("Element exsists")
+}
+
+//slicing
+let stark2 = starks.prefix(2)
+print(stark2)
+let stark3 = starks.suffix(2)
+print(stark3)
+
+let start = starks.index(starks.startIndex, offsetBy: 1)
+let end = starks.index(starks.endIndex, offsetBy: -1)
+let range = start...end
+let starks4 = starks[range]
+print(starks4)
+
 //Iterate the array
 for stark in starks { print("for-in: " + stark) }
 for i in 0..<starks.count { print("Simple index: " + starks[i])}
@@ -72,10 +93,23 @@ emptyDict.merge(anotherDic) { current, new in
 for key in emptyDict.keys {
     print(key + "value: \(emptyDict[key])")
 }
+emptyDict.removeValue(forKey: "DCH")
 
 var string = "Hello World"
 let charCountMap = string.reduce(into: [:]) { $0[$1, default:0] += 1 }
 print(charCountMap)
+
+////////////// Type Conversions /////////
+//Int to String
+let myString = String(42)
+print(myString)
+let myInt = Int(myString)
+print(myInt ?? 0)
+
+//var greeting = "Hello, playground"
+//let charArray = Array(greeting)
+//let str2 = String(charArray)
+//print(str2)
 
 
 
