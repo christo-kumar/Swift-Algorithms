@@ -2,6 +2,7 @@ import UIKit
 
 var greeting = "Hello, playground"
 
+//Graph implimeted as adjcency list
 class Graph {
     var adjList: [String: [String]] = [:] // Dictionary to hold adjacency list
     
@@ -45,6 +46,7 @@ class Graph {
     }
 }
 
+//Graph implimented as adjcency matrix
 class GraphMatrix {
     var matrix: [[Int]]
     
