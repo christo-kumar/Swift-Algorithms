@@ -3,8 +3,5 @@
     <pages>
         <page name='Problem1'/>
         <page name='Problem2'/>
-        <page name='Problem3'/>
-        <page name='CheatSheet'/>
-        <page name='HackerRankTest'/>
     </pages>
 </playground>
