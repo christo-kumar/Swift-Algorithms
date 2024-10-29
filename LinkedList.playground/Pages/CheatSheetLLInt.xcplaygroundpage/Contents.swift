@@ -32,6 +32,21 @@ public class LinkedList {
     }
   }
   
+  public func remove(_ value: Int){
+    if let head = head, head.value != value {
+      var trav = head
+      while let next = trav.next {
+        if next.value == value {
+          trav.next = next.next
+          return
+        }
+        trav = next
+      }
+    } else if head?.value == value {
+      head = head?.next
+    }
+  }
+  
   //Terminates just at the end of LL hence let name is current
   public func printLL() {
     var trav = head
@@ -46,4 +61,9 @@ let linkedList = LinkedList()
 linkedList.append(Node(1))
 linkedList.append(Node(2))
 linkedList.append(Node(3))
+linkedList.printLL()
+linkedList.remove(3)
+linkedList.remove(2)
+linkedList.remove(1)
+print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
 linkedList.printLL()
