@@ -5,109 +5,109 @@ import Foundation
 var greeting = "Hello, playground"
 
 class TreeNode<T: Comparable> {
-    var value: T
-    var left: TreeNode?
-    var right: TreeNode?
-    
-    init(value: T) {
-        self.value = value
-    }
-    
+  var value: T
+  var left: TreeNode?
+  var right: TreeNode?
+  
+  init(value: T) {
+    self.value = value
+  }
+  
 }
 
 class BinarySearchTree<T: Comparable> {
-    private(set) var root: TreeNode<T>?
+  private(set) var root: TreeNode<T>?
+  
+  func search(value: T) -> TreeNode<T>? {
+    return search(from: root, value: value)
+  }
+  
+  private func search(from node: TreeNode<T>?, value: T) -> TreeNode<T>? {
+    guard let node = node else { return nil }
     
-    func insert(value: T) {
-        root = insert(from: root, value: value)
+    if value == node.value {
+      return node
+    } else if value < node.value {
+      return search(from: node.left, value: value)
+    } else {
+      return search(from: node.right, value: value)
+    }
+  }
+  
+  func inOrderTraversal(node: TreeNode<T>?) {
+    guard let node = node else { return }
+    inOrderTraversal(node: node.left)
+    print(node.value, terminator: " ")
+    inOrderTraversal(node: node.right)
+  }
+  
+  func preOrderTraversal(node: TreeNode<T>?) {
+    guard let node = node else { return }
+    print(node.value, terminator: " ")
+    preOrderTraversal(node: node.left)
+    preOrderTraversal(node: node.right)
+  }
+  
+  func postOrderTraversal(node: TreeNode<T>?) {
+    guard let node = node else { return }
+    postOrderTraversal(node: node.left)
+    postOrderTraversal(node: node.right)
+    print(node.value, terminator: " ")
+  }
+  
+  func insert(value: T) {
+    root = insert(from: root, value: value)
+  }
+  
+  private func insert(from node: TreeNode<T>?, value: T) -> TreeNode<T> {
+    guard let node = node else {
+      return TreeNode(value: value)
     }
     
-    func search(value: T) -> TreeNode<T>? {
-        return search(from: root, value: value)
+    if value < node.value {
+      node.left = insert(from: node.left, value: value)
+    } else if value > node.value {
+      node.right = insert(from: node.right, value: value)
     }
+    return node
+  }
+  
+  func delete(value: T) {
+    root = delete(from: root, value: value)
+  }
+  
+  private func delete(from node: TreeNode<T>?, value: T) -> TreeNode<T>? {
+    guard let node = node else { return nil }
     
-    func delete(value: T) {
-        root = delete(from: root, value: value)
-    }
-    
-    private func insert(from node: TreeNode<T>?, value: T) -> TreeNode<T> {
-        guard let node = node else {
-            return TreeNode(value: value)
+    if value < node.value {
+      node.left = delete(from: node.left, value: value)
+    } else if value > node.value {
+      node.right = delete(from: node.right, value: value)
+    } else {
+      // Node to delete found
+      if node.left == nil && node.right == nil {
+        return nil
+      } else if node.left == nil {
+        return node.right
+      } else if node.right == nil {
+        return node.left
+      } else {
+        if let minValue = minValue(from: node.right) {
+          node.value = minValue
+          node.right = delete(from: node.right, value: minValue)
         }
-        
-        if value < node.value {
-            node.left = insert(from: node.left, value: value)
-        } else if value > node.value {
-            node.right = insert(from: node.right, value: value)
-        }
-        return node
+      }
     }
-    
-    func inOrderTraversal(node: TreeNode<T>?) {
-        guard let node = node else { return }
-        inOrderTraversal(node: node.left)
-        print(node.value, terminator: " ")
-        inOrderTraversal(node: node.right)
+    return node
+  }
+  
+  private func minValue(from node: TreeNode<T>?) -> T? {
+    var currentNode = node
+    while let next = currentNode?.left {
+      currentNode = next
     }
-    
-    func preOrderTraversal(node: TreeNode<T>?) {
-        guard let node = node else { return }
-        print(node.value, terminator: " ")
-        preOrderTraversal(node: node.left)
-        preOrderTraversal(node: node.right)
-    }
-    
-    func postOrderTraversal(node: TreeNode<T>?) {
-        guard let node = node else { return }
-        postOrderTraversal(node: node.left)
-        postOrderTraversal(node: node.right)
-        print(node.value, terminator: " ")
-    }
-    
-    private func search(from node: TreeNode<T>?, value: T) -> TreeNode<T>? {
-        guard let node = node else { return nil }
-        
-        if value == node.value {
-            return node
-        } else if value < node.value {
-            return search(from: node.left, value: value)
-        } else {
-            return search(from: node.right, value: value)
-        }
-    }
-    
-    private func delete(from node: TreeNode<T>?, value: T) -> TreeNode<T>? {
-        guard let node = node else { return nil }
-        
-        if value < node.value {
-            node.left = delete(from: node.left, value: value)
-        } else if value > node.value {
-            node.right = delete(from: node.right, value: value)
-        } else {
-            // Node to delete found
-            if node.left == nil && node.right == nil {
-                return nil
-            } else if node.left == nil {
-                return node.right
-            } else if node.right == nil {
-                return node.left
-            } else {
-                if let minValue = minValue(from: node.right) {
-                    node.value = minValue
-                    node.right = delete(from: node.right, value: minValue)
-                }
-            }
-        }
-        return node
-    }
-    
-    private func minValue(from node: TreeNode<T>?) -> T? {
-        var currentNode = node
-        while let next = currentNode?.left {
-            currentNode = next
-        }
-        return currentNode?.value
-    }
+    return currentNode?.value
+  }
 }
 
 let bst = BinarySearchTree<Int>()
@@ -130,9 +130,9 @@ print("\nPost-order Traversal:")
 bst.postOrderTraversal(node: bst.root) // Output: 20 40 30 60 80 70 50
 
 if let searchResult = bst.search(value: 60) {
-    print("\nFound: \(searchResult.value)")
+  print("\nFound: \(searchResult.value)")
 } else {
-    print("\nNot found")
+  print("\nNot found")
 }
 
 bst.delete(value: 70)
