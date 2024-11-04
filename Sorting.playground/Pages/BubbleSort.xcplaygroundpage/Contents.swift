@@ -3,6 +3,7 @@
 import Foundation
 
 var greeting = "Bubble Sort"
+//Bubble largest to the top
 
 func bubbleSort(array: inout [Int]) -> [Int] {
   var currMaxIndex = array.count - 1

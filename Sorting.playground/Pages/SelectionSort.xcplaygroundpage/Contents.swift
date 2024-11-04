@@ -1,6 +1,7 @@
 import UIKit
 
 var greeting = "Selection Sort"
+//Punctures least to the bottom
 
 func selectionSort(array: inout[Int]) -> [Int] {
   let lastIndex = array.count - 1
